@@ -30,6 +30,7 @@ L'API Gateway funge da **punto di ingresso unico** per tutti i microservizi dell
 ---
 
 ## 🏗️ Architettura
+![Eureka Service](docs/images/Eureka.png)
 
 ```
 Client Request
