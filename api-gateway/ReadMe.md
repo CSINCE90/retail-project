@@ -8,7 +8,7 @@ API Gateway centralizzato per l'architettura microservizi RetailSports, basato s
 
 ---
 
-![Architettura API Gateway](../docs/images/Eureka.png)
+![API Gateway on Eureka](../docs/images/Eureka.png)
 
 ## 📋 Descrizione
 
