@@ -5,8 +5,10 @@ API Gateway centralizzato per l'architettura microservizi RetailSports, basato s
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.9-brightgreen?style=flat-square&logo=spring)
 ![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2025.0.1-blue?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square&logo=openjdk)
-![Eureka Service](docs/images/Eureka.png)
+
 ---
+
+![Architettura API Gateway](../docs/images/Eureka.png)
 
 ## 📋 Descrizione
 
