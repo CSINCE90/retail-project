@@ -1,0 +1,19 @@
+server:
+  port: 8761 # Eureka Server default port
+
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  client:
+    register-with-eureka: false #Eureka non deve registrare se stesso
+    fetch-registry: false #Eureka non deve recuperare il registro di altri servizi
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ #URL di default per il servizio Eureka
+
+Logging:
+  level:
+    com.netflix.eureka: INFO #Impostazione del livello di log per Eureka
+    com.netflix.discovery: INFO #Impostazione del livello di log per Discovery
