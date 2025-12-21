@@ -1,0 +1,155 @@
+# ============================================
+# RetailSports - User Service Configuration
+# ============================================
+# TEMPLATE FILE - Copia questo file come application.yaml
+# e inserisci le tue credenziali
+# ============================================
+
+server:
+  port: 8081
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# ============================================
+# SPRING APPLICATION
+# ============================================
+spring:
+  application:
+    name: user-service
+
+  # ============================================
+  # DATASOURCE MySQL
+  # ============================================
+  datasource:
+    url: jdbc:mysql://localhost:3306/retailsports_users?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: YOUR_MYSQL_PASSWORD_HERE  # <-- INSERISCI LA TUA PASSWORD
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+    # Connection Pool (HikariCP)
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1200000
+
+  # ============================================
+  # JPA/HIBERNATE
+  # ============================================
+  jpa:
+    hibernate:
+      ddl-auto: validate # validate = verifica schema senza modificare
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+    open-in-view: false
+
+  # ============================================
+  # DEVTOOLS (Hot Reload)
+  # ============================================
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+# ============================================
+# EUREKA CLIENT (Service Discovery)
+# ============================================
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
+# ============================================
+# ACTUATOR (Health Check & Monitoring)
+# ============================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    db:
+      enabled: true
+
+# ============================================
+# LOGGING
+# ============================================
+logging:
+  level:
+    root: INFO
+    com.retailsports.user_service: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/user-service.log
+
+# ============================================
+# JWT CONFIGURATION (Custom Properties)
+# ============================================
+jwt:
+  secret: YOUR_JWT_SECRET_KEY_HERE_MUST_BE_AT_LEAST_256_BITS  # <-- CAMBIARE CON CHIAVE SICURA!
+  expiration: 86400000 # 24 ore in millisecondi
+  refresh-expiration: 604800000 # 7 giorni in millisecondi
+
+# ============================================
+# APPLICATION CUSTOM PROPERTIES
+# ============================================
+app:
+  name: RetailSports User Service
+  version: 1.0.0
+  description: User Authentication and Management Service
+  
+  # Email Verification
+  email:
+    verification:
+      enabled: true
+      token-expiration: 86400000 # 24 ore
+  
+  # Password Reset
+  password:
+    reset:
+      token-expiration: 3600000 # 1 ora
+  
+  # Security
+  security:
+    max-login-attempts: 5
+    account-lock-duration: 900000 # 15 minuti
+
+# ============================================
+# ISTRUZIONI PER L'USO
+# ============================================
+# 1. Copia questo file come 'application.yaml'
+# 2. Modifica 'YOUR_MYSQL_PASSWORD_HERE' con la tua password MySQL
+# 3. Genera un JWT secret sicuro (almeno 256 bit):
+#    - Online: https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx
+#    - Comando: openssl rand -base64 64
+# 4. NON committare il file application.yaml su Git!
