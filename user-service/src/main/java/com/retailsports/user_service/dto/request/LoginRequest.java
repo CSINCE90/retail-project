@@ -1,4 +1,4 @@
-package com.retailsports.user_service.dto;
+package com.retailsports.user_service.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
