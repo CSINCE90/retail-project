@@ -50,8 +50,8 @@ cd eureka-server
 | Servizio | Status |
 |----------|--------|
 | Eureka Server | ✅ Completato |
-| API Gateway | 🔄 In sviluppo |
-| User Service | 📋 Pianificato |
+| API Gateway | ✅ Completato |
+| User Service | ✅ Completato  |
 | Altri servizi | 📋 Pianificato |
 
 ## 👨‍💻 Autore
