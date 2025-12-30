@@ -346,3 +346,58 @@ export interface Cart {
   subtotalCents: number;
   subtotalFormatted: string;
 }
+
+// ========== CART SERVICE BACKEND TYPES ==========
+
+export interface CartItemResponse {
+  id: number;
+  productId: number;
+  quantity: number;
+  unitPriceCents: number;
+  discountPercentage: number;
+  subtotalCents: number;
+  discountAmountCents: number;
+  finalPriceCents: number;
+  unitPriceFormatted: string;
+  subtotalFormatted: string;
+  finalPriceFormatted: string;
+  addedAt: string;
+  updatedAt: string;
+}
+
+export interface CartResponse {
+  id: number;
+  userId: number;
+  items: CartItemResponse[];
+  totalItems: number;
+  subtotalCents: number;
+  totalDiscountCents: number;
+  totalCents: number;
+  subtotalFormatted: string;
+  totalDiscountFormatted: string;
+  totalFormatted: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CartSummaryResponse {
+  id: number;
+  userId: number;
+  totalItems: number;
+  uniqueProducts: number;
+  subtotalCents: number;
+  totalDiscountCents: number;
+  totalCents: number;
+  subtotalFormatted: string;
+  totalDiscountFormatted: string;
+  totalFormatted: string;
+}
+
+export interface AddToCartRequest {
+  productId: number;
+  quantity: number;
+}
+
+export interface UpdateCartItemRequest {
+  quantity: number;
+}

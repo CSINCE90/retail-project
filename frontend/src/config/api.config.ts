@@ -102,6 +102,16 @@ export const API_CONFIG = {
       REMOVE_FROM_PRODUCT: (discountId: number, productId: number) =>
         `/api/admin/discounts/${discountId}/products/${productId}`,
     },
+
+    // Cart endpoints
+    CART: {
+      GET: (userId: number) => `/api/cart/${userId}`,
+      ADD_ITEM: (userId: number) => `/api/cart/${userId}/items`,
+      UPDATE_ITEM: (userId: number, productId: number) => `/api/cart/${userId}/items/${productId}`,
+      REMOVE_ITEM: (userId: number, productId: number) => `/api/cart/${userId}/items/${productId}`,
+      CLEAR: (userId: number) => `/api/cart/${userId}`,
+      SUMMARY: (userId: number) => `/api/cart/${userId}/summary`,
+    },
   },
 
   // Storage keys
