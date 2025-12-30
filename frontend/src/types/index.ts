@@ -112,7 +112,7 @@ export interface Product {
 }
 
 export interface ProductSummary {
-  id: number;
+  id: number | string;
   sku: string;
   name: string;
   slug: string;
@@ -130,6 +130,30 @@ export interface ProductSummary {
   primaryImageUrl?: string;
   categoryName: string;
   brandName?: string;
+}
+
+export interface ProductDetail {
+  id: string;
+  slug: string;
+  name: string;
+  shortDescription: string;
+  fullDescription: string;
+  priceFormatted: string;
+  priceCents: number;
+  compareAtPriceFormatted?: string;
+  compareAtPriceCents?: number;
+  isOnSale: boolean;
+  discountPercentage?: number;
+  isNew: boolean;
+  isFeatured: boolean;
+  stockQuantity: number;
+  categoryName: string;
+  brandName?: string;
+  primaryImageUrl: string;
+  imageUrls: string[];
+  sizes?: string[];
+  colors?: string[];
+  specifications?: Record<string, string>;
 }
 
 export interface ProductImage {

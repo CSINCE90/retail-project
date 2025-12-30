@@ -6,10 +6,10 @@ import API_CONFIG from '../../config/api.config';
 interface CartState extends Cart {
   // Actions
   addItem: (product: ProductSummary, quantity?: number, attributes?: Record<string, string>) => void;
-  removeItem: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  removeItem: (productId: number | string) => void;
+  updateQuantity: (productId: number | string, quantity: number) => void;
   clearCart: () => void;
-  getItemQuantity: (productId: number) => number;
+  getItemQuantity: (productId: number | string) => number;
 }
 
 /**

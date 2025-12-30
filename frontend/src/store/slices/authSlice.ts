@@ -14,6 +14,7 @@ interface AuthState {
   logout: () => Promise<void>;
   loadUser: () => void;
   clearError: () => void;
+  updateProfile: (data: Partial<User>) => Promise<void>;
 }
 
 /**
@@ -91,5 +92,25 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   clearError: () => {
     set({ error: null });
+  },
+
+  updateProfile: async (data) => {
+    set({ isLoading: true, error: null });
+    try {
+      // Mock implementation - replace with actual API call
+      const updatedUser = { ...authService.getStoredUser()!, ...data };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      set({
+        user: updatedUser,
+        isLoading: false,
+        error: null,
+      });
+    } catch (error: any) {
+      set({
+        isLoading: false,
+        error: error.response?.data?.message || 'Update failed. Please try again.',
+      });
+      throw error;
+    }
   },
 }));
