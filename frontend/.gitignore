@@ -1,4 +1,15 @@
-# Logs
+# ============================================
+# ENVIRONMENT & SENSITIVE FILES
+# ============================================
+# Environment variables (contains API keys, secrets)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# ============================================
+# LOGS
+# ============================================
 logs
 *.log
 npm-debug.log*
@@ -7,12 +18,17 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# ============================================
+# BUILD & DEPENDENCIES
+# ============================================
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# ============================================
+# EDITOR & IDE
+# ============================================
 .vscode/*
 !.vscode/extensions.json
 .idea

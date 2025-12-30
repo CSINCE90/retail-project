@@ -1,3 +1,19 @@
+# ============================================
+# FILE SENSIBILI - NON COMMITTARE MAI!
+# ============================================
+# File di configurazione con credenziali
+**/application.yaml
+**/application.yml
+**/application-*.yaml
+**/application-*.yml
+
+# File di properties con credenziali
+**/application.properties
+**/application-*.properties
+
+# ============================================
+# GRADLE
+# ============================================
 HELP.md
 .gradle
 build/
