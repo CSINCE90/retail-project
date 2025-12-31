@@ -37,8 +37,8 @@ export function RegisterForm() {
     try {
       const { confirmPassword, acceptTerms, ...registerData } = data;
       await registerUser(registerData);
-      success('Registration successful! Welcome to RetailSports.');
-      navigate('/', { replace: true });
+      success('Registration successful! Please check your email to verify your account, then login.');
+      navigate('/login', { replace: true });
     } catch (err: any) {
       showError(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
@@ -48,6 +48,29 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {/* Username Field */}
+      <Input
+        label="Username"
+        placeholder="johndoe"
+        helperText="3-50 characters, letters, numbers, dots, underscores, hyphens only"
+        error={errors.username?.message}
+        {...register('username', {
+          required: 'Username is required',
+          minLength: {
+            value: 3,
+            message: 'Username must be at least 3 characters',
+          },
+          maxLength: {
+            value: 50,
+            message: 'Username must be less than 50 characters',
+          },
+          pattern: {
+            value: /^[a-zA-Z0-9._-]+$/,
+            message: 'Username can only contain letters, numbers, dots, underscores and hyphens',
+          },
+        })}
+      />
+
       {/* First Name & Last Name */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Input
@@ -94,8 +117,13 @@ export function RegisterForm() {
         label="Phone Number"
         type="tel"
         placeholder="+39 123 456 7890"
-        error={errors.phoneNumber?.message}
-        {...register('phoneNumber')}
+        error={errors.phone?.message}
+        {...register('phone', {
+          pattern: {
+            value: /^\+?[0-9]{10,20}$/,
+            message: 'Phone number must be 10-20 digits, optionally starting with +'
+          }
+        })}
       />
 
       {/* Password Field */}
@@ -103,13 +131,27 @@ export function RegisterForm() {
         label="Password"
         type="password"
         placeholder="••••••••"
-        helperText="At least 8 characters, 1 uppercase, 1 lowercase, 1 number"
+        helperText="At least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character"
         error={errors.password?.message}
         {...register('password', {
           required: 'Password is required',
-          validate: (value) =>
-            isStrongPassword(value) ||
-            'Password must be at least 8 characters with uppercase, lowercase, and number',
+          minLength: {
+            value: 8,
+            message: 'Password must be at least 8 characters',
+          },
+          validate: (value) => {
+            const hasUpperCase = /[A-Z]/.test(value);
+            const hasLowerCase = /[a-z]/.test(value);
+            const hasNumber = /[0-9]/.test(value);
+            const hasSpecialChar = /[@#$%^&+=!]/.test(value);
+
+            if (!hasUpperCase) return 'Password must contain at least one uppercase letter';
+            if (!hasLowerCase) return 'Password must contain at least one lowercase letter';
+            if (!hasNumber) return 'Password must contain at least one number';
+            if (!hasSpecialChar) return 'Password must contain at least one special character (@#$%^&+=!)';
+
+            return true;
+          },
         })}
       />
 

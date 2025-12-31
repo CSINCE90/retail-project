@@ -49,10 +49,11 @@ export const useAuthStore = create<AuthState>((set) => ({
   register: async (userData) => {
     set({ isLoading: true, error: null });
     try {
-      const authData = await authService.register(userData);
+      const user = await authService.register(userData);
+      // Registration returns user without tokens - user must login after registering
       set({
-        user: authData.user,
-        isAuthenticated: true,
+        user: null,
+        isAuthenticated: false,
         isLoading: false,
         error: null,
       });

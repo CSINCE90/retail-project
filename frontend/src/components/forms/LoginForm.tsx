@@ -5,7 +5,6 @@ import { useAuthStore } from '../../store';
 import { useToast } from '../../hooks';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { isValidEmail } from '../../utils';
 import type { LoginRequest } from '../../types';
 
 /**
@@ -43,15 +42,18 @@ export function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Email Field */}
+      {/* Username Field */}
       <Input
-        label="Email Address"
-        type="email"
-        placeholder="your@email.com"
-        error={errors.email?.message}
-        {...register('email', {
-          required: 'Email is required',
-          validate: (value) => isValidEmail(value) || 'Please enter a valid email address',
+        label="Username"
+        type="text"
+        placeholder="johndoe"
+        error={errors.username?.message}
+        {...register('username', {
+          required: 'Username is required',
+          minLength: {
+            value: 3,
+            message: 'Username must be at least 3 characters',
+          },
         })}
       />
 
