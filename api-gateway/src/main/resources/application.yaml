@@ -20,40 +20,36 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/api/auth/**
-          filters:
-            - StripPrefix=1
 
         # Route per User Service
         - id: user-service
           uri: lb://user-service
           predicates:
             - Path=/api/users/**
-          filters:
-            - StripPrefix=1
-        
+
         # Route per Product Service
         - id: product-service
           uri: lb://product-service
           predicates:
             - Path=/api/products/**
-          filters:
-            - StripPrefix=1
-        
+
         # Route per Cart Service
         - id: cart-service
           uri: lb://cart-service
           predicates:
             - Path=/api/cart/**
-          filters:
-            - StripPrefix=1
-        
-        # Route per Payment Service
+
+        # Route per Orders (Payment Service)
+        - id: orders-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/orders/**
+
+        # Route per Payments (Payment Service)
         - id: payment-service
           uri: lb://payment-service
           predicates:
             - Path=/api/payments/**
-          filters:
-            - StripPrefix=1
 
 # Configurazione Eureka Client
 eureka:
