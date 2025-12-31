@@ -5,7 +5,7 @@ import { useAuthStore } from '../../store';
 import { useToast } from '../../hooks';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
-import { isValidEmail, isStrongPassword } from '../../utils';
+import { isValidEmail } from '../../utils';
 import type { RegisterRequest } from '../../types';
 
 interface RegisterFormData extends RegisterRequest {
@@ -36,11 +36,13 @@ export function RegisterForm() {
     setIsLoading(true);
     try {
       const { confirmPassword, acceptTerms, ...registerData } = data;
+      console.log('Registration data:', registerData);
       await registerUser(registerData);
       success('Registration successful! Please check your email to verify your account, then login.');
       navigate('/login', { replace: true });
     } catch (err: any) {
-      showError(err.response?.data?.message || 'Registration failed. Please try again.');
+      console.error('Registration error:', err);
+      showError(err.response?.data?.message || err.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }

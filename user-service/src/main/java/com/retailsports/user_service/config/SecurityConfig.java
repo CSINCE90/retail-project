@@ -31,7 +31,7 @@ public class SecurityConfig {
         http
             // Disabilita CSRF (usiamo JWT, non cookie)
             .csrf(AbstractHttpConfigurer::disable)
-            
+
             // Configurazione autorizzazioni
             .authorizeHttpRequests(auth -> auth
                 // Endpoint pubblici (non richiedono autenticazione)
@@ -46,19 +46,19 @@ public class SecurityConfig {
                     "/actuator/info",
                     "/error"
                 ).permitAll()
-                
+
                 // Endpoint ADMIN
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                
+
                 // Tutti gli altri richiedono autenticazione
                 .anyRequest().authenticated()
             )
-            
+
             // Gestione eccezioni (401 Unauthorized)
             .exceptionHandling(ex -> ex
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
             )
-            
+
             // Stateless (non usiamo sessioni)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
