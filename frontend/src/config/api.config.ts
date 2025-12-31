@@ -112,6 +112,26 @@ export const API_CONFIG = {
       CLEAR: (userId: number) => `/api/cart/${userId}`,
       SUMMARY: (userId: number) => `/api/cart/${userId}/summary`,
     },
+
+    // Order endpoints
+    ORDERS: {
+      CREATE: '/api/orders',
+      ALL: '/api/orders',
+      BY_ID: (id: number) => `/api/orders/${id}`,
+      BY_ORDER_NUMBER: (orderNumber: string) => `/api/orders/number/${orderNumber}`,
+      BY_USER: (userId: number) => `/api/orders/user/${userId}`,
+      UPDATE_STATUS: (id: number) => `/api/orders/${id}/status`,
+      CANCEL: (id: number) => `/api/orders/${id}/cancel`,
+    },
+
+    // Payment endpoints
+    PAYMENTS: {
+      PROCESS: '/api/payments',
+      ALL: '/api/payments',
+      BY_ID: (id: number) => `/api/payments/${id}`,
+      BY_ORDER: (orderId: number) => `/api/payments/order/${orderId}`,
+      REFUND: (id: number) => `/api/payments/${id}/refund`,
+    },
   },
 
   // Storage keys

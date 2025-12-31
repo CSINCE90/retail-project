@@ -2,15 +2,17 @@
 
 export interface User {
   id: number;
+  username: string;
+  email: string;
   firstName: string;
   lastName: string;
-  email: string;
-  phoneNumber?: string;
-  role: UserRole;
-  isActive: boolean;
+  phone?: string;
+  enabled: boolean;
   emailVerified: boolean;
+  roles: string[];
   createdAt: string;
   updatedAt: string;
+  addresses?: Address[];
 }
 
 export const UserRole = {
@@ -29,16 +31,17 @@ export interface AuthResponse {
 }
 
 export interface LoginRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
 export interface RegisterRequest {
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
   password: string;
-  phoneNumber?: string;
+  firstName: string;
+  lastName: string;
+  phone?: string;
 }
 
 // ========== ADDRESS TYPES ==========
@@ -400,4 +403,166 @@ export interface AddToCartRequest {
 
 export interface UpdateCartItemRequest {
   quantity: number;
+}
+
+// ========== ORDER TYPES ==========
+
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  PROCESSING: 'PROCESSING',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED',
+} as const;
+
+export type OrderStatus = typeof OrderStatus[keyof typeof OrderStatus];
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  REFUNDED: 'REFUNDED',
+} as const;
+
+export type PaymentStatus = typeof PaymentStatus[keyof typeof PaymentStatus];
+
+export const PaymentMethod = {
+  CREDIT_CARD: 'CREDIT_CARD',
+  PAYPAL: 'PAYPAL',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  CASH_ON_DELIVERY: 'CASH_ON_DELIVERY',
+} as const;
+
+export type PaymentMethod = typeof PaymentMethod[keyof typeof PaymentMethod];
+
+export interface OrderItemResponse {
+  id: number;
+  productId: number;
+  productName: string;
+  productSku?: string;
+  productImage?: string;
+  quantity: number;
+  unitPriceCents: number;
+  discountPercentage: number;
+  discountCents: number;
+  subtotalCents: number;
+  totalCents: number;
+  unitPriceFormatted: string;
+  totalFormatted: string;
+  createdAt: string;
+}
+
+export interface OrderResponse {
+  id: number;
+  orderNumber: string;
+  userId: number;
+  subtotalCents: number;
+  discountCents: number;
+  shippingCents: number;
+  taxCents: number;
+  totalCents: number;
+  subtotalFormatted: string;
+  totalFormatted: string;
+  status: OrderStatus;
+  paymentStatus: PaymentStatus;
+  paymentMethod?: PaymentMethod;
+  shippingAddressLine1: string;
+  shippingAddressLine2?: string;
+  shippingCity: string;
+  shippingState?: string;
+  shippingPostalCode: string;
+  shippingCountry: string;
+  billingAddressLine1: string;
+  billingAddressLine2?: string;
+  billingCity: string;
+  billingState?: string;
+  billingPostalCode: string;
+  billingCountry: string;
+  customerNotes?: string;
+  adminNotes?: string;
+  trackingNumber?: string;
+  createdAt: string;
+  updatedAt: string;
+  confirmedAt?: string;
+  shippedAt?: string;
+  deliveredAt?: string;
+  cancelledAt?: string;
+  items: OrderItemResponse[];
+  totalItems: number;
+  canBeCancelled: boolean;
+  canBeRefunded: boolean;
+}
+
+export interface CreateOrderRequest {
+  userId: number;
+  items: OrderItemRequest[];
+  paymentMethod: PaymentMethod;
+  shippingAddressLine1: string;
+  shippingAddressLine2?: string;
+  shippingCity: string;
+  shippingState?: string;
+  shippingPostalCode: string;
+  shippingCountry: string;
+  billingAddressLine1: string;
+  billingAddressLine2?: string;
+  billingCity: string;
+  billingState?: string;
+  billingPostalCode: string;
+  billingCountry: string;
+  customerNotes?: string;
+  shippingCents?: number;
+  discountCents?: number;
+}
+
+export interface OrderItemRequest {
+  productId: number;
+  productName: string;
+  productSku?: string;
+  productImage?: string;
+  quantity: number;
+  unitPriceCents: number;
+  discountPercentage?: number;
+  discountCents?: number;
+}
+
+export interface UpdateOrderStatusRequest {
+  status: OrderStatus;
+  notes?: string;
+  trackingNumber?: string;
+}
+
+// ========== PAYMENT TYPES ==========
+
+export interface PaymentResponse {
+  id: number;
+  orderId: number;
+  paymentMethod: PaymentMethod;
+  amountCents: number;
+  currency: string;
+  amountFormatted: string;
+  status: PaymentStatus;
+  transactionId?: string;
+  paymentGateway?: string;
+  cardLast4?: string;
+  cardBrand?: string;
+  notes?: string;
+  errorMessage?: string;
+  createdAt: string;
+  completedAt?: string;
+  failedAt?: string;
+  canBeRefunded: boolean;
+}
+
+export interface ProcessPaymentRequest {
+  orderId: number;
+  paymentMethod: PaymentMethod;
+  amountCents: number;
+  currency?: string;
+  cardLast4?: string;
+  cardBrand?: string;
+  transactionId?: string;
+  paymentGateway?: string;
+  notes?: string;
 }

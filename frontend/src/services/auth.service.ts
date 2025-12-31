@@ -25,15 +25,14 @@ class AuthService {
   /**
    * Register new user
    */
-  async register(userData: RegisterRequest): Promise<AuthResponse> {
-    const response = await apiService.post<ApiResponse<AuthResponse>>(
+  async register(userData: RegisterRequest): Promise<User> {
+    const response = await apiService.post<ApiResponse<User>>(
       API_CONFIG.ENDPOINTS.AUTH.REGISTER,
       userData
     );
 
-    // Store tokens and user in localStorage
-    this.storeAuthData(response.data);
-
+    // Registration returns only user data (no tokens)
+    // User needs to verify email and then login
     return response.data;
   }
 

@@ -43,7 +43,8 @@ public class SecurityConfig {
                     "/api/auth/forgot-password",
                     "/api/auth/reset-password/**",
                     "/actuator/health",
-                    "/actuator/info"
+                    "/actuator/info",
+                    "/error"
                 ).permitAll()
                 
                 // Endpoint ADMIN
