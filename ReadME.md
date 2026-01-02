@@ -23,8 +23,9 @@ Piattaforma e-commerce moderna per articoli sportivi con architettura a microser
 - **User Service** (8081) - Autenticazione e gestione utenti
 - **Product Service** (8082) - Catalogazione prodotti
 - **Cart Service** (8087) - Gestione carrello
-- **Payment Service** (8088) - Gestione pagamenti
-- Altri servizi: Store, Stock, Delivery, Catalog
+- **Payment Service** (8088) - Gestione ordini e pagamenti
+- **Stock Service** (8089) - Gestione giacenze e prenotazioni stock
+- Altri servizi: Store, Delivery, Catalog
 
 ## 🚀 Stack Tecnologico
 
@@ -47,12 +48,16 @@ cd eureka-server
 
 ## 📊 Stato Progetto
 
-| Servizio | Status |
-|----------|--------|
-| Eureka Server | ✅ Completato |
-| API Gateway | ✅ Completato |
-| User Service | ✅ Completato  |
-| Altri servizi | 📋 Pianificato |
+| Servizio | Porta | Status | Database |
+|----------|-------|--------|----------|
+| Eureka Server | 8761 | ✅ Completato | - |
+| API Gateway | 8080 | ✅ Completato | - |
+| User Service | 8081 | ✅ Completato | retailsports_users |
+| Product Service | 8082 | ✅ Completato | retailsports_products |
+| Cart Service | 8087 | ✅ Completato | retailsports_cart |
+| Payment Service | 8088 | ✅ Completato | retailsports_payments |
+| Stock Service | 8089 | ✅ Completato | retailsports_stock |
+| Altri servizi | - | 📋 Pianificato | - |
 
 ## 👨‍💻 Autore
 
