@@ -12,3 +12,4 @@ export { default as userService } from './user.service';
 export { default as cartService } from './cart.service';
 export { default as orderService } from './order.service';
 export { default as paymentService } from './payment.service';
+export { default as stockService } from './stock.service';

@@ -17,6 +17,7 @@ import { AddressesPage } from '../pages/protected/AddressesPage';
 // Admin pages
 import { AdminDashboard } from '../pages/admin/AdminDashboard';
 import { AdminProductsPage } from '../pages/admin/AdminProductsPage';
+import { AdminStockPage } from '../pages/admin/AdminStockPage';
 
 /**
  * Application Routes Configuration
@@ -84,6 +85,14 @@ export const router = createBrowserRouter([
         element: (
           <ProtectedRoute requireAdmin>
             <AdminProductsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: 'admin/stock',
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminStockPage />
           </ProtectedRoute>
         ),
       },
